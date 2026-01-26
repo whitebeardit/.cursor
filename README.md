@@ -32,8 +32,7 @@ This configuration repository is designed to be linked/synchronized to `.cursor/
 │   └── wb-commit.md             # Commit workflow command
 │
 ├── rules/                       # Development rules and guidelines
-│   ├── conventional-commits.md  # Commit format specification
-│   ├── ai-commit-guidelines.md  # AI behavior for commits
+│   ├── conventional-commits.md  # Commit format specification (consolidated)
 │   └── development-guidelines.md # General development practices
 │
 └── docs/                        # Documentation
@@ -70,6 +69,8 @@ cp -r /path/to/.cursor-config/* .cursor/
 - **refactor-assistant**: Suggests code improvements and refactorings
 - **documentation-assistant**: Generates and improves code documentation
 - **idempotency-assistant**: Ensures operations are idempotent
+- **commit-assistant**: Analyzes changes and suggests Conventional Commits
+- **jira-update-assistant**: Safely updates Jira cards with structured comments
 
 ### 3. Using Subagents
 
@@ -87,16 +88,23 @@ Skills are reusable knowledge that subagents reference. They're organized by lan
 
 - **dotnet/**: .NET specific patterns (correlation-ID tracking, OpenTelemetry)
 - **nodejs/**: Node.js specific patterns (correlation-ID tracking, OpenTelemetry)
-- **shared/**: Multi-language patterns (testing, security, performance, code quality, idempotency)
+- **shared/**: Multi-language patterns (testing, security, performance, code quality, idempotency, conventional-commits, jira-update)
 
 ### 5. Custom Commands
 
-- **wb-commit**: Ensures commits follow Conventional Commits pattern with context-based grouping
+- **wb-commit**: Ensures commits follow Conventional Commits pattern with context-based grouping. Uses GitHub CLI (`gh`) for PR creation.
 
 Use in Cursor chat:
 ```
 /wb-commit
 ```
+
+The command:
+- Groups changes by context/module
+- Creates commits following Conventional Commits format
+- Uses `git add` and `git commit` for local operations
+- Uses `gh pr create` for PR creation (not `git push`)
+- Protects `main` branch (requires explicit authorization)
 
 ## How It Works
 
