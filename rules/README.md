@@ -5,24 +5,19 @@ This directory contains rules and guidelines for Cursor AI to follow when workin
 ## Rule Files
 
 ### `conventional-commits.md`
+
 Complete specification of the Conventional Commits pattern used in the project. Contains:
 - Commit format specification
 - Allowed commit types
+- AI behavior guidelines
 - Examples of valid and invalid commits
 - Pull Request format and rules
 - Breaking changes format
 - Semantic-release integration details
 - Validation checklists
+- Context-based commit grouping
 
-### `ai-commit-guidelines.md`
-Specific behavior guidelines for Cursor AI when creating commits and PRs:
-- When and how to suggest commits/PRs
-- Validation process before suggesting
-- How to remind users about the format
-- Special cases and scenarios
-- Practical interaction examples
-
-> **Note**: `ai-commit-guidelines.md` references `conventional-commits.md` for the complete specification. The separation allows the specification to be a reference document while the guidelines focus on AI behavior.
+> **Note**: For specialized commit assistance, see the `commit-assistant` subagent at `.cursor/agents/shared/commit-assistant.md` which uses the `conventional-commits` skill at `.cursor/skills/shared/conventional-commits/SKILL.md`.
 
 ## Why These Rules Exist
 
@@ -48,6 +43,12 @@ If you create a commit or PR that doesn't follow the pattern, Cursor AI will:
 1. Alert about the problem
 2. Suggest the correct format
 3. Explain why it's important
+
+## Related Assets
+
+- **Skill**: `.cursor/skills/shared/conventional-commits/SKILL.md` - Reusable knowledge about Conventional Commits
+- **Subagent**: `.cursor/agents/shared/commit-assistant.md` - Specialized assistant for commit creation
+- **Command**: `.cursor/commands/wb-commit.md` - Command for context-based commits with GitHub CLI
 
 ## References
 

@@ -1,6 +1,6 @@
 # Conventional Commits Specification
 
-> **Reference**: This file contains the complete specification for Conventional Commits used in this project. For AI behavior guidelines, see [ai-commit-guidelines.md](./ai-commit-guidelines.md).
+This file contains the complete specification for Conventional Commits used in this project, including AI behavior guidelines.
 
 ## Why Conventional Commits?
 
@@ -14,6 +14,14 @@ This project uses **semantic-release** for automatic versioning and publishing. 
 - ❌ Versions not automatically generated
 - ❌ Outdated changelog
 - ❌ Publication not performed
+
+## AI Behavior Guidelines
+
+**ALWAYS** when the user requests commits, PRs, or code changes, you MUST:
+
+1. **Suggest commits in Conventional Commits format**
+2. **Suggest PR titles in Conventional Commits format**
+3. **Remind the user about the format if they forget**
 
 ## Commit Format
 
@@ -39,6 +47,17 @@ This project uses **semantic-release** for automatic versioning and publishing. 
 - **`chore`**: Other changes that don't fit the categories above
 - **`revert`**: Reverts a previous commit
 
+### Type Prioritization
+
+When determining the commit type, prioritize in this order:
+
+1. **`feat`** - For new features
+2. **`fix`** - For bug fixes
+3. **`refactor`** - For refactoring without behavior changes
+4. **`docs`** - For documentation changes
+5. **`test`** - For adding/fixing tests
+6. **`chore`** - For maintenance tasks
+
 ## Scope (Optional)
 
 The scope should indicate the affected code area. Common scopes in this project:
@@ -51,6 +70,9 @@ The scope should indicate the affected code area. Common scopes in this project:
 - `config`: Configuration changes (TraceabilityOptions, etc.)
 - `core`: Changes in core (CorrelationContext, etc.)
 - `tests`: Test changes
+- Generic examples: `domain`, `service`, `api`, `db`, `auth`, `utils`, `component`, `model`, `controller`, `validator`
+
+**For context-based commits:** Use the main folder/module name (e.g., if file is in `Core/Domain/`, scope is `domain`). For projects without clear structure, use `core` or the main package name.
 
 ## Subject (Required)
 
@@ -58,6 +80,7 @@ The scope should indicate the affected code area. Common scopes in this project:
 - Must not end with a period
 - Must be a short, clear description (maximum 72 characters)
 - Must use imperative mood: "add feature" not "added feature" or "adds feature"
+- Must be in **English**
 
 ## Valid Commit Examples
 
@@ -66,18 +89,22 @@ The scope should indicate the affected code area. Common scopes in this project:
 feat(logging): add TraceContextEnricher for OpenTelemetry support
 feat(mvc): add RouteNameEnricher to include route name in logs
 feat(http): add support for custom correlation ID headers
+feat(domain): add loyalty card entity
 
 # Bug Fix
 fix(middleware): ensure Activity is available in PreSendRequestHeaders
 fix(logging): normalize Index action route name to 'Controller/' format
+fix(service): correct mongo connection retry strategy
 fix: resolve compiler warnings in CorrelationIdHttpModule
 
 # Documentation
 docs: update README with new configuration options
 docs(api): add XML documentation for RouteNameEnricher
+docs(api): document auth headers for endpoints
 
 # Refactoring
 refactor(core): simplify CorrelationContext implementation
+refactor(utils): simplify normalization logic
 refactor: extract route extraction logic to separate class
 
 # Performance
@@ -85,6 +112,7 @@ perf(http): optimize HttpClient correlation ID injection
 
 # Tests
 test(logging): add tests for TraceContextEnricher
+test(validator): add unit tests for CNPJ rules
 test: add integration tests for MVC route extraction
 
 # CI/CD
@@ -114,6 +142,47 @@ feat(logging): add TraceContextEnricher that enriches trace context with TraceId
 # ❌ Non-imperative mood
 feat: added new feature
 feat: adds support for X
+
+# ❌ Ends with period
+feat(logging): add TraceContextEnricher.
+
+# ❌ Not in English
+feat(logging): adicionar novo recurso
+```
+
+## Context-Based Commits
+
+**Golden rule:** *one commit = one context (when possible)*
+
+**Process:**
+
+1. **Group changes by context/folder/module**
+2. **Make separate commits by context**:
+   - Order by dependency (innermost layers first, interfaces last)
+   - If there's no clear dependency, order alphabetically
+3. **Don't mix different types in the same context**:
+   - `refactor(domain)` separate from `feat(domain)`
+   - `fix(service)` separate from `test(service)`
+
+**Exceptions:**
+- If all changes are from the same context and type, can be a single commit
+- Formatting/linter changes can be grouped in `style` or `chore`
+
+## Breaking Changes
+
+If there's a contract/API break:
+
+* Use `!` in the type: `feat(api)!: rename endpoint for ...`
+* And add footer:
+  ```
+  BREAKING CHANGE: <short explanation in English>
+  ```
+
+**Example:**
+```
+feat(api): change method signature
+
+BREAKING CHANGE: Method X now requires parameter Y instead of Z
 ```
 
 ## Pull Request Format
@@ -212,19 +281,32 @@ Adds trace context enrichment (TraceId/SpanId/ParentSpanId) and promotes fields 
 - [x] `feat` - New feature (MINOR)
 ```
 
-## Breaking Changes
+### Situations That Require PR
 
-If the PR contains a **BREAKING CHANGE**, it must include in the footer:
+**ALWAYS** create/suggest a PR when:
+- The user explicitly requests PR creation
+- The user mentions "pull request", "PR", "merge request"
+- The user asks to "open PR", "create PR", "make PR"
+- The user completes a feature or fix and wants code review
+- The user wants semantic-release to analyze the changes
 
-```
-BREAKING CHANGE: <description of incompatible change>
-```
+**DO NOT** create/suggest PR for:
+- Release commits (automatically generated)
+- Local configuration commits
+- Temporary debug commits
 
-**Example:**
-```
-feat(api): change method signature
+### PR Creation Process
 
-BREAKING CHANGE: Method X now requires parameter Y instead of Z
+**ALWAYS** when the user requests PR creation or mentions Pull Request, you MUST:
+
+1. **Suggest a title in Conventional Commits format**
+2. **Validate the title before suggesting** (use validation checklist below)
+3. **Suggest a complete PR description** (use template above)
+4. **Remind about the importance of the format for semantic-release**
+
+**Use GitHub CLI (`gh`) to create PRs:**
+```bash
+gh pr create --title "<type>(<scope>): <subject>" --body "<description>"
 ```
 
 ## Merge Commits
@@ -257,11 +339,20 @@ Semantic-release analyzes commits using the `angular` preset with the following 
 
 ### Before Committing
 
-- [ ] Commit follows the format `<type>(<scope>): <subject>`
-- [ ] Type is one of the allowed types (`feat`, `fix`, `docs`, etc.)
-- [ ] Subject is in lowercase and imperative mood
-- [ ] Subject has a maximum of 72 characters
+Before suggesting a commit, verify:
+
+- [ ] Type is correct (`feat`, `fix`, etc.)
+- [ ] Scope is appropriate (or omitted if it doesn't make sense)
+- [ ] Subject is in lowercase (except proper nouns)
+- [ ] Subject is in imperative mood
+- [ ] Subject has less than 72 characters
+- [ ] Subject doesn't end with period
+- [ ] Subject is in English
+- [ ] Format is correct: `<type>(<scope>): <subject>`
+- [ ] Commit files belong to the same context (or are related changes)
 - [ ] If there's a breaking change, includes `BREAKING CHANGE:` in the footer
+
+**If any validation fails, fix it before suggesting.**
 
 ### Before Creating PR
 
@@ -273,6 +364,7 @@ Semantic-release analyzes commits using the `angular` preset with the following 
 - [ ] Title doesn't end with period
 - [ ] Title has maximum of 72 characters
 - [ ] Title doesn't include PR number
+- [ ] Format is correct: `<type>(<scope>): <subject>`
 
 **Description Validation:**
 - [ ] PR description is complete
@@ -286,11 +378,79 @@ Semantic-release analyzes commits using the `angular` preset with the following 
 - [ ] Commits are logically organized
 - [ ] There are no debug or temporary commits
 
-**Code Validation:**
-- [ ] Code has been tested
-- [ ] Tests have been added/updated (if necessary)
-- [ ] Documentation has been updated (if necessary)
-- [ ] There are no warnings or compilation errors
+**If any validation fails, fix it before suggesting.**
+
+## Reminders for the User
+
+If the user creates a commit or PR that doesn't follow the pattern, you MUST:
+
+1. **Inform** that the format is incorrect
+2. **Suggest** the correct format
+3. **Explain** why it's important (semantic-release won't detect it)
+4. **Show** examples of correct format
+
+**Example response for commit:**
+```
+⚠️ The commit title doesn't follow the Conventional Commits pattern.
+
+Current title: "Add new feature"
+Suggested title: "feat(logging): add TraceContextEnricher"
+
+This is important because semantic-release analyzes commits to automatically generate versions. Commits that don't follow the pattern are ignored.
+```
+
+**Example response for PR:**
+```
+⚠️ The PR title doesn't follow the Conventional Commits pattern.
+
+Current title: "Logging: enrich trace context + JSON trace fields"
+Suggested title: "feat(logging): enrich trace context + JSON trace fields"
+
+IMPORTANT: Semantic-release analyzes the merge commit title to determine whether to generate a new version. PRs with titles that don't follow the pattern will result in "no relevant changes" and no version will be generated.
+
+Correct format: <type>(<scope>): <subject>
+Examples:
+- feat(logging): enrich trace context + JSON trace fields
+- fix(middleware): ensure Activity is available in debug mode
+- feat(mvc): add Attribute Routing support
+```
+
+## Special Cases
+
+### Release Commits
+
+Commits generated by semantic-release already follow the pattern:
+```
+chore(release): 1.2.3 [skip ci]
+```
+**DO NOT modify** these commits.
+
+### Multiple Changes
+
+**Scenario:** Adds feature X and fixes bug Y
+
+**Suggested commits:**
+```
+feat(scope): add feature X
+fix(scope): fix bug Y
+```
+
+**NEVER combine multiple changes in a single commit** unless they are related and make sense together.
+
+### PR with Breaking Change
+
+**Suggested title:**
+```
+feat(api): change method X signature
+```
+
+**Suggested description:**
+Include in the description footer:
+```
+BREAKING CHANGE: Method X now requires parameter Y instead of Z
+```
+
+This will make semantic-release generate a MAJOR version.
 
 ## References
 
