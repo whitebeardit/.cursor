@@ -1,6 +1,6 @@
 ---
 name: logging-assistant
-model: inherit
+model: gemini-3-flash
 description: Specialized subagent that analyzes code changes in the current context and adds appropriate logging statements using correlation-id tracking patterns for Node.js/TypeScript. Operates independently to review modifications and enhance code with structured logging.
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: commit-assistant
-model: inherit
+model: gemini-3-flash
 description: Specialized subagent that analyzes code changes, groups them by context, and suggests Conventional Commits following best practices. Uses GitHub CLI for PR creation.
 ---
 

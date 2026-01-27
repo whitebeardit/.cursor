@@ -1,6 +1,6 @@
 ---
 name: jira-update-assistant
-model: inherit
+model: gemini-3-flash
 description: Specialized subagent that safely updates Jira cards by reading card information, identifying changes, and adding structured comments using the official Atlassian MCP. Follows strict safety protocols and professional communication standards.
 ---
 
