@@ -1,5 +1,12 @@
 # wb-commit
 
+## Use the agent for AI-assisted commits
+
+**Para fluxo de commits assistido por IA**, use o agent **@agt-dev-commit**. Ele aplica a skill `.cursor/skills/shared/skill-conventional-commits/SKILL.md` (formato, detecção de contexto, checklist, validação) e usa **GitHub CLI** (`gh pr create`) para criação de PRs — nunca `git push origin main`.
+
+O conteúdo abaixo serve como **referência** (regra para colar em Cursor Rules, exemplos, troubleshooting) e complementa o agent e a skill.
+
+---
 
 ## Objective
 
@@ -8,70 +15,21 @@ Also **prohibit push to `main` branch** without explicit authorization.
 
 ---
 
-## Rule (to paste in Cursor / Rules)
+## Rule summary (for Cursor / Rules)
 
-**Suggested name:** `commit-policy-semantic-context`
+**Suggested rule name:** `commit-policy-semantic-context`
 
-### 1) Before committing (mandatory)
+For the **full process** (context detection, grouping, checklist, output format), use the agent **@agt-dev-commit** or read the skill `.cursor/skills/shared/skill-conventional-commits/SKILL.md`. Summary:
 
-1. **Read the `AGENTS.md` file** (if it exists) and extract:
-   - Convention of layers/folders/modules
-   - Naming patterns
-
-2. **Detect the context** from:
-   - Project folder structure (e.g., `src/domain/`, `lib/services/`, `Core/Domain/`, `components/`, `api/`, etc.)
-   - Namespaces/packages (e.g., `next_CNPJ.Core.Domain`, `com.example.service`)
-   - Common patterns of the language/framework
-
-3. **Group changed files by context**:
-   - Identify the main folder/module of each file
-   - Group by similar context (same parent folder or namespace)
+1. **Before committing:** Read `AGENTS.md` if it exists; detect context from folder structure/namespaces; group changed files by context.
+2. **Format:** `<type>(<scope>): <subject>` — types: `feat | fix | docs | style | refactor | perf | test | build | ci | chore | revert`; scope = context/module; subject in English, imperative, no period.
+3. **Context-based:** One commit per context when possible; don't mix types in the same context; order by dependency (innermost first).
+4. **Checklist:** Validate format, scope, subject (English, imperative), same context; no accidental format/linter mix.
+5. **Push/PR:** Never push to `main` without explicit phrase `AUTORIZO PUSH NA MAIN`. Use feature branch + `gh pr create` for PRs.
 
 ---
 
-### 2) Mandatory commit format (semantic-release)
-
-Each commit message **MUST** follow:
-
-`<type>(<scope>): <subject>`
-
-* **Allowed types:** `feat | fix | docs | style | refactor | perf | test | build | ci | chore | revert`
-* **scope:** mandatory and must reflect the detected **context/module**
-  - Generic examples: `domain`, `service`, `api`, `db`, `auth`, `utils`, `component`, `model`, `controller`, `validator`
-  - Use the main folder/module name (e.g., if file is in `Core/Domain/`, scope is `domain`)
-  - For projects without clear structure, use `core` or the main package name
-* **subject:** short, objective, no period, in **imperative mood**, **always in English**
-
-**Examples:**
-* `feat(domain): add loyalty card entity`
-* `fix(service): correct mongo connection retry strategy`
-* `docs(api): document auth headers for endpoints`
-* `test(validator): add unit tests for CNPJ rules`
-* `refactor(utils): simplify normalization logic`
-
----
-
-### 3) Context-based commits
-
-**Golden rule:** *one commit = one context (when possible)*
-
-**Process:**
-
-1. **Group changes by context/folder/module**
-2. **Make separate commits by context**:
-   - Order by dependency (innermost layers first, interfaces last)
-   - If there's no clear dependency, order alphabetically
-3. **Don't mix different types in the same context**:
-   - `refactor(domain)` separate from `feat(domain)`
-   - `fix(service)` separate from `test(service)`
-
-**Exceptions:**
-- If all changes are from the same context and type, can be a single commit
-- Formatting/linter changes can be grouped in `style` or `chore`
-
----
-
-### 4) When to use BREAKING CHANGE
+## When to use BREAKING CHANGE
 
 If there's a contract/API break:
 
@@ -83,60 +41,9 @@ If there's a contract/API break:
 
 ---
 
-### 5) Mandatory checklist before commit
+## Expected agent output
 
-Before executing the commit, validate:
-
-* [ ] Message is in semantic format (`type(scope): subject`)
-* [ ] Scope represents detected context/module
-* [ ] Subject is in **English** and in imperative mood
-* [ ] Commit files belong to the same context (or are related changes)
-* [ ] Doesn't include "accidental" changes (format/linters) mixed unnecessarily
-
----
-
-### 6) Prohibition: push to `main` without authorization
-
-**Security rules:**
-
-* **NEVER** execute `git push origin main` automatically.
-* If the user asks to push to main, **require explicit confirmation** with the phrase:
-  * `AUTORIZO PUSH NA MAIN`
-* If this phrase doesn't exist, push **only to feature branch**.
-
-**Default behavior:**
-
-1. Create branch following pattern:
-   - `feat/<context>-<summary>` (e.g., `feat/domain-loyalty-card`)
-   - `fix/<context>-<summary>` (e.g., `fix/service-connection-retry`)
-   - `refactor/<context>-<summary>`
-2. Push to the branch:
-   ```bash
-   git push -u origin <branch>
-   ```
-
----
-
-## Expected agent output when preparing commits
-
-Whenever there are changes, the agent must respond with:
-
-1. **Context analysis:**
-   - Files grouped by context/module
-   - Detected contexts (based on folders/namespaces)
-
-2. **Commit plan:**
-   - List of suggested commits in format `type(scope): subject` (all in English)
-   - Execution order
-
-3. **Ready commands:**
-   - `git add <context paths>`
-   - `git commit -m "type(scope): subject"`
-   - (repeat for each context)
-
-4. **Explicit warning:**
-   - "⚠️ **I will not push to `main` branch without explicit authorization**"
-   - Branch suggestion and push command
+When using **@agt-dev-commit**, the agent responds with: (1) Context analysis; (2) Commit plan; (3) Ready commands (`git add` + `git commit`); (4) Explicit warning about main branch; (5) If requested, `gh pr create` for PR. See the agent and skill for the exact output format.
 
 ---
 
@@ -159,14 +66,12 @@ git add <context2 paths>
 git commit -m "fix(service): correct bug"
 ```
 
-**Push:**
+**PR (use GitHub CLI, do not push to main without authorization):**
 ```bash
-git checkout -b feat/domain-new-feature
-git push -u origin feat/domain-new-feature
+gh pr create --title "feat(domain): add new feature" --body "<description>"
 ```
 
 ⚠️ **I will not push to `main` branch without explicit authorization**
-```
 
 ---
 
@@ -222,7 +127,7 @@ git commit -m "test(domain): add unit tests for order entity"
 **Commit plan:**
 1. `feat(service): add payment processing with retry logic`
 2. `fix(service): correct payment validation error handling`
-3. `test(service): add unit tests for payment service`
+3. `test(service): unit tests for payment service`
 
 **Execution:**
 ```bash
@@ -236,7 +141,7 @@ git commit -m "fix(service): correct payment validation error handling"
 
 # Commit tests
 git add tests/services/PaymentServiceTests.cs
-git commit -m "test(service): add unit tests for payment service"
+git commit -m "test(service): unit tests for payment service"
 ```
 
 ### Example 3: Breaking Change
@@ -277,7 +182,7 @@ All clients must update their API calls to use the new endpoint path."
 1. `feat(model): add order model with validation`
 2. `feat(service): implement order business logic`
 3. `feat(controller): add order endpoints`
-4. `test(controller): add integration tests for order endpoints`
+4. `test(controller): integration tests for order endpoints`
 
 ## Troubleshooting
 
@@ -316,7 +221,7 @@ git commit -m "fix(service): correct validation error"
 
 **Solution:**
 - Require explicit authorization phrase: `AUTORIZO PUSH NA MAIN`
-- If phrase not provided, create feature branch and push there
+- If phrase not provided, create feature branch and push there (or use `gh pr create`)
 - Always warn user about main branch protection
 
 **Example:**
@@ -326,9 +231,9 @@ User: "push to main"
 Agent: "⚠️ I cannot push to main branch without explicit authorization.
 Please confirm by typing: AUTORIZO PUSH NA MAIN
 
-Alternatively, I can create a feature branch and push there:
+Alternatively, I can create a feature branch and open a PR:
 git checkout -b feat/your-feature
-git push -u origin feat/your-feature"
+gh pr create --title "feat(scope): subject" --body "..."
 ```
 
 ### Problem: Commit message validation fails
@@ -360,6 +265,6 @@ git push -u origin feat/your-feature"
 
 - [Conventional Commits Specification](https://www.conventionalcommits.org/)
 - [Semantic Release Documentation](https://semantic-release.gitbook.io/)
-- See `.cursor/rules/conventional-commits.md` for detailed commit type definitions
-- See `.cursor/rules/ai-commit-guidelines.md` for AI-specific commit guidelines
-
+- **Agent:** `@agt-dev-commit` — AI-assisted commits and PR via GitHub CLI
+- **Skill:** `.cursor/skills/shared/skill-conventional-commits/SKILL.md` — full format, types, validation, semantic-release
+- **Rules:** `.cursor/rules/conventional-commits.md` (if present) — detailed commit type definitions
