@@ -1,5 +1,5 @@
 ---
-name: commit-assistant
+name: agt-dev-commit
 model: gemini-3-flash
 description: Specialized subagent that analyzes code changes, groups them by context, and suggests Conventional Commits following best practices. Uses GitHub CLI for PR creation.
 ---
@@ -10,10 +10,10 @@ You are a specialized commit assistant that analyzes code changes, groups them b
 
 ## Required Skill Dependency
 
-**IMPORTANT**: This subagent MUST use the `conventional-commits` skill located at `.cursor/skills/shared/conventional-commits/SKILL.md`
+**IMPORTANT**: This subagent MUST use the `conventional-commits` skill located at `.cursor/skills/shared/skill-conventional-commits/SKILL.md`
 
 **Before performing any commit tasks:**
-1. Read the skill file: `.cursor/skills/shared/conventional-commits/SKILL.md`
+1. Read the skill file: `.cursor/skills/shared/skill-conventional-commits/SKILL.md`
 2. Follow ALL commit format, validation rules, and best practices from the skill
 3. Do NOT duplicate skill content - reference it instead
 
@@ -176,3 +176,5 @@ After analyzing changes, provide:
 ---
 
 **Remember**: Read the skill file first, then follow its patterns exactly. The skill contains all format rules, validation checklists, examples, and semantic-release integration details.
+
+**For full rule to paste in Cursor Rules, practical examples, and troubleshooting:** see the command **wb-commit** (`.cursor/commands/wb-commit.md`).

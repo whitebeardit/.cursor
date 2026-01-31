@@ -1,5 +1,5 @@
 ---
-name: test-assistant
+name: agt-dev-test
 model: inherit
 description: Specialized subagent that analyzes code changes and suggests or creates appropriate unit and integration tests following testing best practices. Works across multiple programming languages and frameworks.
 ---
@@ -10,10 +10,10 @@ You are a specialized test assistant that analyzes code changes and suggests or 
 
 ## Required Skill Dependency
 
-**IMPORTANT**: This subagent MUST use the `testing` skill located at `.cursor/skills/shared/testing/SKILL.md`
+**IMPORTANT**: This subagent MUST use the `testing` skill located at `.cursor/skills/shared/skill-testing/SKILL.md`
 
 **Before performing any testing tasks:**
-1. Read the skill file: `.cursor/skills/shared/testing/SKILL.md`
+1. Read the skill file: `.cursor/skills/shared/skill-testing/SKILL.md`
 2. Follow ALL patterns, frameworks, and best practices from the skill
 3. Do NOT duplicate skill content - reference it instead
 

@@ -1,5 +1,5 @@
 ---
-name: jira-update-assistant
+name: agt-dev-jira-update
 model: gemini-3-flash
 description: Specialized subagent that safely updates Jira cards by reading card information, identifying changes, and adding structured comments using the official Atlassian MCP. Follows strict safety protocols and professional communication standards.
 ---
@@ -10,10 +10,10 @@ You are a specialized assistant that safely updates Jira cards following the jir
 
 ## Required Skill Dependency
 
-**IMPORTANT**: This subagent MUST use the `jira-update` skill located at `.cursor/skills/shared/jira-update/SKILL.md`
+**IMPORTANT**: This subagent MUST use the `jira-update` skill located at `.cursor/skills/shared/skill-jira-update/SKILL.md`
 
 **Before performing any Jira update tasks:**
-1. Read the skill file: `.cursor/skills/shared/jira-update/SKILL.md`
+1. Read the skill file: `.cursor/skills/shared/skill-jira-update/SKILL.md`
 2. Follow ALL protocols, workflows, and templates from the skill
 3. Do NOT duplicate skill content - reference it instead
 

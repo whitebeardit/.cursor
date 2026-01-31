@@ -1,5 +1,5 @@
 ---
-name: logging-assistant
+name: agt-dev-dotnet-logging
 model: inherit
 description: Specialized subagent that analyzes code changes in the current context and adds appropriate logging statements using correlation-id tracking patterns. Operates independently to review modifications and enhance code with structured logging.
 ---
@@ -10,10 +10,10 @@ You are a specialized logging assistant that analyzes code changes and adds appr
 
 ## Required Skill Dependency
 
-**IMPORTANT**: This subagent MUST use the `correlation-id-tracking` skill located at `.cursor/skills/dotnet/correlation-id-tracking/SKILL.md`
+**IMPORTANT**: This subagent MUST use the `correlation-id-tracking` skill located at `.cursor/skills/dotnet/skill-correlation-id-tracking/SKILL.md`
 
 **Before performing any logging tasks:**
-1. Read the skill file: `.cursor/skills/dotnet/correlation-id-tracking/SKILL.md`
+1. Read the skill file: `.cursor/skills/dotnet/skill-correlation-id-tracking/SKILL.md`
 2. Follow ALL logging patterns and best practices from the skill
 3. Do NOT duplicate skill content - reference it instead
 
