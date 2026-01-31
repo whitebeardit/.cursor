@@ -1,41 +1,46 @@
 # Cursor Configuration Repository
 
-Comprehensive configuration for Cursor IDE to maximize development productivity. This repository provides specialized subagents, reusable skills, custom commands, and development rules organized by technology stack.
+Comprehensive configuration for Cursor IDE to maximize development productivity. This repository provides agents (prefix `agt-`), skills (prefix `skill-`), custom commands, and development rules organized by domain and language.
 
 ## Overview
 
 This configuration repository is designed to be linked/synchronized to `.cursor/` directories in your projects. It provides:
 
-- **Subagents**: Specialized AI assistants for specific tasks (logging, testing, security, etc.)
-- **Skills**: Reusable knowledge and patterns organized by language
+- **Agents**: Specialized AI assistants (prefix `agt-`); domain `dev` (general) or `qa` (QA/Playwright); no `-assistant` suffix
+- **Skills**: Reusable knowledge (folder prefix `skill-`) organized by language and domain
 - **Commands**: Custom commands for development workflows
 - **Rules**: Development guidelines and conventions
+
+## Prefixes
+
+- **Agents**: `agt-dev-*` (general dev: commit, test, security, logging, etc.), `agt-qa-*` (QA/Playwright, frontend quality)
+- **Skills**: All skill folders start with `skill-` (e.g. `skill-conventional-commits`, `skill-qa-playwright-maintain-conventions`)
 
 ## Structure
 
 ```
-.cursor-config/
-├── AGENTS.md                    # Minimal root configuration
-├── README.md                     # This file
+.cursor-configs/
+├── AGENTS.md                    # Index by prefix + link instruction
+├── README.md                    # This file
 │
-├── agents/                      # Subagents organized by language
-│   ├── dotnet/                  # .NET specific subagents
-│   ├── nodejs/                  # Node.js specific subagents
-│   └── shared/                  # Multi-language subagents
+├── agents/
+│   ├── dotnet/                  # agt-dev-dotnet-logging, agt-dev-dotnet-opentelemetry
+│   ├── nodejs/                  # agt-dev-nodejs-logging, agt-dev-nodejs-opentelemetry
+│   ├── shared/                  # agt-dev-commit, agt-dev-test, agt-dev-security, etc.
+│   └── qa/                      # agt-qa-playwright-maintain, agt-qa-frontend-quality, etc.
 │
-├── skills/                      # Reusable skills organized by language
-│   ├── dotnet/                  # .NET specific skills
-│   ├── nodejs/                  # Node.js specific skills
-│   └── shared/                  # Multi-language skills
+├── skills/
+│   ├── dotnet/                  # skill-correlation-id-tracking, skill-opentelemetry-instrumentation
+│   ├── nodejs/                  # (same)
+│   ├── shared/                  # skill-testing, skill-conventional-commits, skill-security, etc.
+│   └── qa/                      # skill-qa-playwright-*, skill-frontend-qa-friendly
 │
-├── commands/                    # Custom commands
+├── commands/
 │   └── wb-commit.md             # Commit workflow command
 │
 ├── rules/                       # Development rules and guidelines
-│   ├── conventional-commits.md  # Commit format specification (consolidated)
-│   └── development-guidelines.md # General development practices
 │
-└── docs/                        # Documentation
+└── docs/
     └── CREATING_ASSETS.md       # Guide for creating new assets
 ```
 
@@ -47,48 +52,60 @@ Link or copy this repository to your project's `.cursor/` directory:
 
 ```bash
 # Option 1: Symlink (recommended)
-ln -s /path/to/.cursor-config .cursor
+ln -s /path/to/.cursor-configs .cursor
 
 # Option 2: Copy
-cp -r /path/to/.cursor-config/* .cursor/
+cp -r /path/to/.cursor-configs/* .cursor/
 ```
 
-### 2. Available Subagents
+### 2. Available Agents
 
-#### .NET Specific
-- **logging-assistant**: Adds structured logging with correlation-ID tracking
-- **opentelemetry-instrumentation-assistant**: Adds OpenTelemetry instrumentation
+Type `@agt-` in Cursor chat to list all agents. Filter by domain: `@agt-dev-` (general dev), `@agt-qa-` (QA/Playwright).
 
-#### Node.js Specific
-- **logging-assistant**: Adds structured logging with correlation-ID tracking (Node.js)
-- **opentelemetry-instrumentation-assistant**: Adds OpenTelemetry instrumentation (Node.js)
+#### Dev — .NET
+- **agt-dev-dotnet-logging**: Structured logging with correlation-ID tracking
+- **agt-dev-dotnet-opentelemetry**: OpenTelemetry instrumentation
 
-#### Shared (Multi-language)
-- **test-assistant**: Analyzes code and suggests/creates tests
-- **security-assistant**: Identifies security vulnerabilities
-- **refactor-assistant**: Suggests code improvements and refactorings
-- **documentation-assistant**: Generates and improves code documentation
-- **idempotency-assistant**: Ensures operations are idempotent
-- **commit-assistant**: Analyzes changes and suggests Conventional Commits
-- **jira-update-assistant**: Safely updates Jira cards with structured comments
+#### Dev — Node.js
+- **agt-dev-nodejs-logging**: Structured logging with correlation-ID tracking (Node.js)
+- **agt-dev-nodejs-opentelemetry**: OpenTelemetry instrumentation (Node.js)
 
-### 3. Using Subagents
+#### Dev — Shared (multi-language)
+- **agt-dev-commit**: Conventional Commits, context grouping, GitHub CLI
+- **agt-dev-test**: Suggests/creates unit and integration tests
+- **agt-dev-security**: Security vulnerabilities, OWASP Top 10
+- **agt-dev-refactor**: Refactoring, SOLID, code quality
+- **agt-dev-documentation**: JSDoc, XML docs, README, API docs
+- **agt-dev-idempotency**: Idempotent operations
+- **agt-dev-jira-update**: Safely updates Jira cards (Atlassian MCP)
 
-Subagents are automatically available when this configuration is linked to `.cursor/`. You can invoke them in Cursor chat:
+#### QA (Playwright / frontend testability)
+- **agt-qa-playwright-maintain**: Maintains QA Playwright project conventions
+- **agt-qa-playwright-add-test**: Adds new API or UI test
+- **agt-qa-playwright-add-data**: Adds/extends test-data (inputs, builder)
+- **agt-qa-playwright-add-fixture**: Adds/extends fixture in fixtures/index.ts
+- **agt-qa-playwright-add-flow**: Adds new test flow (folders, specs, test-data)
+- **agt-qa-playwright-context**: Answers about structure, conventions, docs (read-only)
+- **agt-qa-frontend-quality**: Frontend test-friendly (accessibility, stable selectors)
+
+### 3. Using Agents
+
+Agents are automatically available when this configuration is linked to `.cursor/`. Invoke in Cursor chat:
 
 ```
-@logging-assistant Add logging to this code
-@test-assistant Create tests for this function
-@security-assistant Review this code for security issues
+@agt-dev-commit Suggest commits for my changes
+@agt-dev-test Create tests for this function
+@agt-qa-playwright-maintain Align this spec with project conventions
 ```
 
 ### 4. Available Skills
 
-Skills are reusable knowledge that subagents reference. They're organized by language:
+Skills (folder prefix `skill-`) are referenced by agents. Organized by language and domain:
 
-- **dotnet/**: .NET specific patterns (correlation-ID tracking, OpenTelemetry)
-- **nodejs/**: Node.js specific patterns (correlation-ID tracking, OpenTelemetry)
-- **shared/**: Multi-language patterns (testing, security, performance, code quality, idempotency, conventional-commits, jira-update)
+- **dotnet/**: skill-correlation-id-tracking, skill-opentelemetry-instrumentation
+- **nodejs/**: (same)
+- **shared/**: skill-testing, skill-security, skill-code-quality, skill-conventional-commits, skill-idempotency, skill-jira-update, skill-performance
+- **qa/**: skill-qa-playwright-maintain-conventions, skill-qa-playwright-add-new-test, skill-qa-playwright-add-test-data, skill-qa-playwright-add-fixture, skill-qa-playwright-add-new-flow, skill-frontend-qa-friendly
 
 ### 5. Custom Commands
 
@@ -111,7 +128,7 @@ The command:
 ### Cursor Detection
 
 Cursor automatically detects:
-- Subagents in `.cursor/agents/` (including subdirectories)
+- Agents in `.cursor/agents/` (including subdirectories: dotnet, nodejs, shared, qa)
 - Skills in `.cursor/skills/` (including subdirectories)
 - Commands in `.cursor/commands/`
 - Rules in `.cursor/rules/`
@@ -120,34 +137,35 @@ The recursive search means subdirectories like `dotnet/`, `nodejs/`, and `shared
 
 ### Path References
 
-All paths in subagents and skills use the full path from `.cursor/`:
+All paths in agents and skills use the full path from `.cursor/` (with `skill-` prefix for skill folders):
 
-- `.cursor/skills/dotnet/correlation-id-tracking/SKILL.md`
-- `.cursor/skills/nodejs/correlation-id-tracking/SKILL.md`
-- `.cursor/skills/shared/idempotency/SKILL.md`
+- `.cursor/skills/dotnet/skill-correlation-id-tracking/SKILL.md`
+- `.cursor/skills/shared/skill-conventional-commits/SKILL.md`
+- `.cursor/agents/shared/agt-dev-commit.md`
 
 ## Creating New Assets
 
 See [docs/CREATING_ASSETS.md](docs/CREATING_ASSETS.md) for detailed guides on:
-- Creating new subagents
-- Creating new skills
+- Creating new agents (prefix `agt-`, domain `dev` or `qa`, no `-assistant` suffix)
+- Creating new skills (folder prefix `skill-`)
 - Creating new commands
 - Best practices and templates
 
 ## Language Support
 
 Currently supported:
-- **.NET** (C#): Full support with specialized subagents and skills
-- **Node.js** (TypeScript/JavaScript): Full support with specialized subagents and skills
-- **Multi-language**: Shared subagents and skills work across languages
+- **.NET** (C#): Full support with agt-dev-dotnet-* agents and skill-* skills
+- **Node.js** (TypeScript/JavaScript): Full support with agt-dev-nodejs-* agents and skill-* skills
+- **Multi-language**: Shared agt-dev-* agents and skill-* skills
+- **QA / Playwright**: agt-qa-* agents and skill-qa-* / skill-frontend-qa-friendly
 
 ## Contributing
 
 When adding new assets:
-1. Follow the structure: place language-specific assets in `dotnet/` or `nodejs/`, generic in `shared/`
-2. Use proper frontmatter in subagents and skills
-3. Reference skills using full paths (`.cursor/skills/...`)
-4. Update this README if adding major features
+1. Follow the structure: agents/skills in `dotnet/`, `nodejs/`, `shared/`, or `qa/`
+2. Use prefix `agt-` for agents (name without `-assistant`); use prefix `skill-` for skill folder names
+3. Use proper frontmatter; reference skills using full paths (`.cursor/skills/.../skill-<name>/SKILL.md`)
+4. Update this README and [AGENTS.md](AGENTS.md) if adding major features
 
 ## References
 
