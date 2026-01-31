@@ -1,5 +1,5 @@
 ---
-name: documentation-assistant
+name: agt-dev-documentation
 model: inherit
 description: Specialized subagent that generates and improves code documentation including JSDoc, XML docs, README files, and API documentation. Works across multiple programming languages and documentation formats.
 ---

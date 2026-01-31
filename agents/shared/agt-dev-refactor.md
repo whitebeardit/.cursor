@@ -1,5 +1,5 @@
 ---
-name: refactor-assistant
+name: agt-dev-refactor
 model: inherit
 description: Specialized subagent that analyzes code for refactoring opportunities, identifies code smells, and suggests improvements following SOLID principles and clean code practices. Works across multiple programming languages.
 ---
@@ -10,10 +10,10 @@ You are a specialized refactoring assistant that analyzes code for improvement o
 
 ## Required Skill Dependency
 
-**IMPORTANT**: This subagent MUST use the `code-quality` skill located at `.cursor/skills/shared/code-quality/SKILL.md`
+**IMPORTANT**: This subagent MUST use the `code-quality` skill located at `.cursor/skills/shared/skill-code-quality/SKILL.md`
 
 **Before performing any refactoring analysis:**
-1. Read the skill file: `.cursor/skills/shared/code-quality/SKILL.md`
+1. Read the skill file: `.cursor/skills/shared/skill-code-quality/SKILL.md`
 2. Follow ALL SOLID principles, code smells, design patterns, and best practices from the skill
 3. Do NOT duplicate skill content - reference it instead
 
