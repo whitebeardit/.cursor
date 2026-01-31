@@ -17,7 +17,7 @@ Complete specification of the Conventional Commits pattern used in the project. 
 - Validation checklists
 - Context-based commit grouping
 
-> **Note**: For specialized commit assistance, see the `commit-assistant` subagent at `.cursor/agents/shared/commit-assistant.md` which uses the `conventional-commits` skill at `.cursor/skills/shared/conventional-commits/SKILL.md`.
+> **Note**: For specialized commit assistance, see the `agt-dev-commit` agent at `.cursor/agents/shared/agt-dev-commit.md` which uses the `skill-conventional-commits` skill at `.cursor/skills/shared/skill-conventional-commits/SKILL.md`.
 
 ## Why These Rules Exist
 
@@ -46,8 +46,8 @@ If you create a commit or PR that doesn't follow the pattern, Cursor AI will:
 
 ## Related Assets
 
-- **Skill**: `.cursor/skills/shared/conventional-commits/SKILL.md` - Reusable knowledge about Conventional Commits
-- **Subagent**: `.cursor/agents/shared/commit-assistant.md` - Specialized assistant for commit creation
+- **Skill**: `.cursor/skills/shared/skill-conventional-commits/SKILL.md` - Reusable knowledge about Conventional Commits
+- **Agent**: `.cursor/agents/shared/agt-dev-commit.md` - Specialized agent for commit creation
 - **Command**: `.cursor/commands/wb-commit.md` - Command for context-based commits with GitHub CLI
 
 ## References
