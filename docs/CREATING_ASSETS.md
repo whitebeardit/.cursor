@@ -85,21 +85,26 @@ After completing the task, provide:
 3. **Verification**: Confirmation that best practices were followed
 ```
 
-### Example: Language-Specific Subagent
+### Naming convention
 
-For `.NET` logging assistant:
-- File: `agents/dotnet/logging-assistant.md`
-- References: `.cursor/skills/dotnet/correlation-id-tracking/SKILL.md`
+- **Agents**: Prefix `agt-`; domain `dev` (general dev) or `qa` (QA-focused); no `-assistant` suffix. Example: `agt-dev-dotnet-logging`, `agt-dev-commit`, `agt-qa-playwright-maintain`.
+- **Skills**: Prefix `skill-` for folder names. Example: `skill-correlation-id-tracking`, `skill-testing`, `skill-conventional-commits`.
 
-For `Node.js` logging assistant:
-- File: `agents/nodejs/logging-assistant.md`
-- References: `.cursor/skills/nodejs/correlation-id-tracking/SKILL.md`
+### Example: Language-Specific Agent
 
-### Example: Shared Subagent
+For `.NET` logging:
+- File: `agents/dotnet/agt-dev-dotnet-logging.md`
+- References: `.cursor/skills/dotnet/skill-correlation-id-tracking/SKILL.md`
 
-For multi-language test assistant:
-- File: `agents/shared/test-assistant.md`
-- References: `.cursor/skills/shared/testing/SKILL.md`
+For `Node.js` logging:
+- File: `agents/nodejs/agt-dev-nodejs-logging.md`
+- References: `.cursor/skills/nodejs/skill-correlation-id-tracking/SKILL.md`
+
+### Example: Shared Agent
+
+For multi-language test:
+- File: `agents/shared/agt-dev-test.md`
+- References: `.cursor/skills/shared/skill-testing/SKILL.md`
 
 ## Creating Skills
 
@@ -178,13 +183,13 @@ This skill helps you [main purpose] in [language/context].
 ```
 skills/
 ├── dotnet/
-│   └── correlation-id-tracking/
+│   └── skill-correlation-id-tracking/
 │       └── SKILL.md
 ├── nodejs/
-│   └── correlation-id-tracking/
+│   └── skill-correlation-id-tracking/
 │       └── SKILL.md
 └── shared/
-    └── idempotency/
+    └── skill-idempotency/
         └── SKILL.md
 ```
 
@@ -247,24 +252,24 @@ See `commands/wb-commit.md` for a complete example of a command implementation.
 
 ### Naming Conventions
 
-- **Subagents**: Use kebab-case with descriptive name (e.g., `logging-assistant`, `test-assistant`)
-- **Skills**: Use kebab-case (e.g., `correlation-id-tracking`, `code-quality`)
+- **Agents**: Prefix `agt-`; domain `dev` or `qa`; no `-assistant` suffix (e.g., `agt-dev-dotnet-logging`, `agt-dev-commit`, `agt-qa-playwright-maintain`)
+- **Skills**: Prefix `skill-` for folder names (e.g., `skill-correlation-id-tracking`, `skill-conventional-commits`, `skill-testing`)
 - **Commands**: Use kebab-case with prefix if needed (e.g., `wb-commit`)
 
 ### File Organization
 
 1. **Language-specific assets** → Place in `dotnet/` or `nodejs/` subdirectories
 2. **Multi-language assets** → Place in `shared/` subdirectory
-3. **Always use full paths** when referencing skills: `.cursor/skills/[language]/skill-name/SKILL.md`
+3. **Always use full paths** when referencing skills: `.cursor/skills/[language]/skill-<name>/SKILL.md`
 
 ### Frontmatter
 
 Always include frontmatter in subagents and skills:
 
-**Subagents:**
+**Agents:**
 ```yaml
 ---
-name: assistant-name
+name: agt-dev-commit
 model: inherit
 description: Clear, specific description
 ---
@@ -283,20 +288,20 @@ description: Clear description with use cases
 **Always use full paths from `.cursor/`:**
 
 ✅ Correct:
-- `.cursor/skills/dotnet/correlation-id-tracking/SKILL.md`
-- `.cursor/skills/shared/idempotency/SKILL.md`
+- `.cursor/skills/dotnet/skill-correlation-id-tracking/SKILL.md`
+- `.cursor/skills/shared/skill-idempotency/SKILL.md`
 
 ❌ Incorrect:
-- `skills/correlation-id-tracking/SKILL.md`
+- `skills/correlation-id-tracking/SKILL.md` (missing `skill-` prefix)
 - `../skills/idempotency/SKILL.md`
 
 ### Skill Dependencies
 
-When a subagent depends on a skill:
+When an agent depends on a skill:
 
 1. **Explicitly state the dependency** in the subagent
-2. **Provide the full path** to the skill
-3. **Instruct the subagent** to read the skill before performing tasks
+2. **Provide the full path** to the skill (with `skill-` prefix in folder name)
+3. **Instruct the agent** to read the skill before performing tasks
 4. **Reference specific patterns** from the skill
 
 ### Code Examples
@@ -308,7 +313,7 @@ When a subagent depends on a skill:
 
 ### Documentation
 
-- **Clear mission**: Each subagent should have a clear mission statement
+- **Clear mission**: Each agent should have a clear mission statement
 - **Step-by-step process**: Break down complex tasks into steps
 - **DO/DON'T lists**: Make rules explicit
 - **Output format**: Specify what the subagent should provide
@@ -338,8 +343,9 @@ When creating a new asset:
 
 See existing assets for reference:
 
-- **Subagent (.NET)**: `agents/dotnet/logging-assistant.md`
-- **Subagent (Shared)**: `agents/shared/test-assistant.md` (when created)
-- **Skill (.NET)**: `skills/dotnet/correlation-id-tracking/SKILL.md`
-- **Skill (Shared)**: `skills/shared/idempotency/SKILL.md` (when created)
+- **Agent (.NET)**: `agents/dotnet/agt-dev-dotnet-logging.md`
+- **Agent (Shared)**: `agents/shared/agt-dev-test.md`
+- **Agent (QA)**: `agents/qa/agt-qa-playwright-maintain.md`
+- **Skill (.NET)**: `skills/dotnet/skill-correlation-id-tracking/SKILL.md`
+- **Skill (Shared)**: `skills/shared/skill-idempotency/SKILL.md`
 - **Command**: `commands/wb-commit.md`
