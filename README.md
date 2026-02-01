@@ -13,7 +13,7 @@ This configuration repository is designed to be linked/synchronized to `.cursor/
 
 ## Prefixes
 
-- **Agents**: `agt-dev-*` (general dev: commit, test, security, logging, etc.), `agt-qa-*` (QA/Playwright, frontend quality)
+- **Agents**: `agt-dev-*` (general dev: commit, test, security, logging, frontend quality, etc.), `agt-qa-*` (QA/Playwright)
 - **Skills**: All skill folders start with `skill-` (e.g. `skill-conventional-commits`, `skill-qa-playwright-maintain-conventions`)
 
 ## Structure
@@ -23,11 +23,8 @@ This configuration repository is designed to be linked/synchronized to `.cursor/
 ├── AGENTS.md                    # Index by prefix + link instruction
 ├── README.md                    # This file
 │
-├── agents/
-│   ├── dotnet/                  # agt-dev-dotnet-logging, agt-dev-dotnet-opentelemetry
-│   ├── nodejs/                  # agt-dev-nodejs-logging, agt-dev-nodejs-opentelemetry
-│   ├── shared/                  # agt-dev-commit, agt-dev-test, agt-dev-security, etc.
-│   └── qa/                      # agt-qa-playwright-maintain, agt-qa-frontend-quality, etc.
+├── agents/                      # all agt-*.md here (no subdirectories)
+│   # agt-dev-dotnet-logging.md, agt-dev-commit.md, agt-qa-playwright-maintain.md, etc.
 │
 ├── skills/
 │   ├── dotnet/                  # skill-correlation-id-tracking, skill-opentelemetry-instrumentation
@@ -78,6 +75,7 @@ Type `@agt-` in Cursor chat to list all agents. Filter by domain: `@agt-dev-` (g
 - **agt-dev-documentation**: JSDoc, XML docs, README, API docs
 - **agt-dev-idempotency**: Idempotent operations
 - **agt-dev-jira-update**: Safely updates Jira cards (Atlassian MCP)
+- **agt-dev-frontend-quality**: Frontend test-friendly for QA (accessibility, stable selectors; for dev use)
 
 #### QA (Playwright / frontend testability)
 - **agt-qa-playwright-maintain**: Maintains QA Playwright project conventions
@@ -86,7 +84,6 @@ Type `@agt-` in Cursor chat to list all agents. Filter by domain: `@agt-dev-` (g
 - **agt-qa-playwright-add-fixture**: Adds/extends fixture in fixtures/index.ts
 - **agt-qa-playwright-add-flow**: Adds new test flow (folders, specs, test-data)
 - **agt-qa-playwright-context**: Answers about structure, conventions, docs (read-only)
-- **agt-qa-frontend-quality**: Frontend test-friendly (accessibility, stable selectors)
 
 ### 3. Using Agents
 
@@ -128,12 +125,10 @@ The command:
 ### Cursor Detection
 
 Cursor automatically detects:
-- Agents in `.cursor/agents/` (including subdirectories: dotnet, nodejs, shared, qa)
+- Agents in `.cursor/agents/` (flat; no subdirectories — Cursor only lists agents at this level)
 - Skills in `.cursor/skills/` (including subdirectories)
 - Commands in `.cursor/commands/`
 - Rules in `.cursor/rules/`
-
-The recursive search means subdirectories like `dotnet/`, `nodejs/`, and `shared/` are automatically detected.
 
 ### Path References
 
@@ -141,7 +136,7 @@ All paths in agents and skills use the full path from `.cursor/` (with `skill-` 
 
 - `.cursor/skills/dotnet/skill-correlation-id-tracking/SKILL.md`
 - `.cursor/skills/shared/skill-conventional-commits/SKILL.md`
-- `.cursor/agents/shared/agt-dev-commit.md`
+- `.cursor/agents/agt-dev-commit.md`
 
 ## Creating New Assets
 
@@ -162,7 +157,7 @@ Currently supported:
 ## Contributing
 
 When adding new assets:
-1. Follow the structure: agents/skills in `dotnet/`, `nodejs/`, `shared/`, or `qa/`
+1. Put agents directly in `.cursor/agents/` (no subdirs); skills stay in `skills/dotnet/`, `skills/nodejs/`, `skills/shared/`, or `skills/qa/`
 2. Use prefix `agt-` for agents (name without `-assistant`); use prefix `skill-` for skill folder names
 3. Use proper frontmatter; reference skills using full paths (`.cursor/skills/.../skill-<name>/SKILL.md`)
 4. Update this README and [AGENTS.md](AGENTS.md) if adding major features

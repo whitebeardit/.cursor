@@ -12,12 +12,12 @@ Assistente para adicionar ou estender dados de teste (inputs.json, builder.ts) n
 
 ## Instructions
 
-1. Apply the skill **qa-playwright-add-test-data** (see [.cursor/skills/qa/skill-qa-playwright-add-test-data/SKILL.md](../../skills/qa/skill-qa-playwright-add-test-data/SKILL.md)).
+1. Apply the skill **qa-playwright-add-test-data** (see [.cursor/skills/qa/skill-qa-playwright-add-test-data/SKILL.md](../skills/qa/skill-qa-playwright-add-test-data/SKILL.md)).
 2. Create or edit in test-data/api/<fluxo>/ or test-data/ui/<fluxo>/: inputs.json (static) and, if varying data is needed, builder.ts using lib/data-factory (randomEmail, randomString, randomNumber).
-3. Refer to [docs/04-test-data.md](../../../docs/04-test-data.md) and [docs/05-lib.md](../../../docs/05-lib.md).
+3. Refer to [docs/04-test-data.md](../../docs/04-test-data.md) and [docs/05-lib.md](../../docs/05-lib.md).
 
 ## References
 
 - Skill: qa-playwright-add-test-data
-- [docs/04-test-data.md](../../../docs/04-test-data.md)
-- [docs/05-lib.md](../../../docs/05-lib.md)
+- [docs/04-test-data.md](../../docs/04-test-data.md)
+- [docs/05-lib.md](../../docs/05-lib.md)

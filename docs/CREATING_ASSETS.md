@@ -11,12 +11,12 @@ This guide explains how to create new subagents, skills, and commands for the Cu
 
 ## Creating Subagents
 
-Subagents are specialized AI assistants that perform specific tasks. They should be placed in the appropriate directory based on language specificity.
+Subagents are specialized AI assistants that perform specific tasks.
 
 ### Directory Structure
 
-- **Language-specific**: `agents/dotnet/` or `agents/nodejs/`
-- **Multi-language**: `agents/shared/`
+- **Agents**: All agent files go directly in `agents/` (no subdirectories). Cursor only detects agents at `.cursor/agents/`.
+- **Unique names**: Use `agt-<domain>-<name>.md` (e.g. `agt-dev-dotnet-logging.md`, `agt-qa-playwright-maintain.md`) to avoid name collisions.
 
 ### Template
 
@@ -87,23 +87,29 @@ After completing the task, provide:
 
 ### Naming convention
 
-- **Agents**: Prefix `agt-`; domain `dev` (general dev) or `qa` (QA-focused); no `-assistant` suffix. Example: `agt-dev-dotnet-logging`, `agt-dev-commit`, `agt-qa-playwright-maintain`.
+- **Agents**: Prefix `agt-`; domain `dev` (general dev) or `qa` (QA-focused); no `-assistant` suffix. Example: `agt-dev-dotnet-logging`, `agt-dev-commit`, `agt-qa-playwright-maintain`. Each file must have a unique name.
 - **Skills**: Prefix `skill-` for folder names. Example: `skill-correlation-id-tracking`, `skill-testing`, `skill-conventional-commits`.
+
+### Skill references in agents
+
+When referencing skills from an agent (in `.cursor/agents/`), use either:
+- **Full path from `.cursor/`**: `.cursor/skills/<dotnet|nodejs|shared|qa>/skill-<name>/SKILL.md`
+- **Relative link** (for Markdown): `../skills/<dotnet|nodejs|shared|qa>/skill-<name>/SKILL.md`
 
 ### Example: Language-Specific Agent
 
 For `.NET` logging:
-- File: `agents/dotnet/agt-dev-dotnet-logging.md`
+- File: `agents/agt-dev-dotnet-logging.md`
 - References: `.cursor/skills/dotnet/skill-correlation-id-tracking/SKILL.md`
 
 For `Node.js` logging:
-- File: `agents/nodejs/agt-dev-nodejs-logging.md`
+- File: `agents/agt-dev-nodejs-logging.md`
 - References: `.cursor/skills/nodejs/skill-correlation-id-tracking/SKILL.md`
 
 ### Example: Shared Agent
 
 For multi-language test:
-- File: `agents/shared/agt-dev-test.md`
+- File: `agents/agt-dev-test.md`
 - References: `.cursor/skills/shared/skill-testing/SKILL.md`
 
 ## Creating Skills
@@ -331,7 +337,7 @@ Before committing:
 
 When creating a new asset:
 
-- [ ] Placed in correct directory (dotnet/nodejs/shared)
+- [ ] Agent in `agents/` (flat); skill in correct `skills/<dotnet|nodejs|shared|qa>/` subdir
 - [ ] Frontmatter is complete and valid
 - [ ] Paths use full `.cursor/` paths
 - [ ] Code examples are complete and correct
@@ -343,9 +349,9 @@ When creating a new asset:
 
 See existing assets for reference:
 
-- **Agent (.NET)**: `agents/dotnet/agt-dev-dotnet-logging.md`
-- **Agent (Shared)**: `agents/shared/agt-dev-test.md`
-- **Agent (QA)**: `agents/qa/agt-qa-playwright-maintain.md`
+- **Agent (.NET)**: `agents/agt-dev-dotnet-logging.md`
+- **Agent (Shared)**: `agents/agt-dev-test.md`
+- **Agent (QA)**: `agents/agt-qa-playwright-maintain.md`
 - **Skill (.NET)**: `skills/dotnet/skill-correlation-id-tracking/SKILL.md`
 - **Skill (Shared)**: `skills/shared/skill-idempotency/SKILL.md`
 - **Command**: `commands/wb-commit.md`

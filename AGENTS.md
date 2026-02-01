@@ -19,6 +19,11 @@ cp -r /caminho/para/.cursor-configs/* .cursor/
 - **Agents**: prefixo `agt-`; domínio `dev` (uso geral) ou `qa` (focado em QA); sem sufixo `-assistant`.
 - **Skills**: prefixo `skill-` nas pastas.
 
+## Localização dos agents
+
+- **Agentes ficam somente** em `.cursor/agents/` (sem subpastas). O Cursor só reconhece agentes nesse nível.
+- **Nome único** por arquivo: `agt-<domínio>-<nome>.md` (ex.: `agt-dev-dotnet-logging.md`, `agt-qa-playwright-maintain.md`) para evitar colisão.
+
 ## Agents (agt-)
 
 ### Dev (uso geral)
@@ -33,6 +38,7 @@ cp -r /caminho/para/.cursor-configs/* .cursor/
 - `agt-dev-dotnet-opentelemetry` — OpenTelemetry (.NET)
 - `agt-dev-nodejs-logging` — Logging estruturado (Node.js), correlation-ID
 - `agt-dev-nodejs-opentelemetry` — OpenTelemetry (Node.js)
+- `agt-dev-frontend-quality` — Frontend testável para QA (acessibilidade, seletores estáveis; uso pelo dev)
 
 ### QA (focado em QA / Playwright)
 - `agt-qa-playwright-maintain` — Mantém convenções do projeto QA Playwright
@@ -41,7 +47,6 @@ cp -r /caminho/para/.cursor-configs/* .cursor/
 - `agt-qa-playwright-add-fixture` — Adiciona/estende fixture em fixtures/index.ts
 - `agt-qa-playwright-add-flow` — Adiciona novo fluxo (pastas, specs, test-data)
 - `agt-qa-playwright-context` — Responde sobre estrutura, convenções, docs (não edita código)
-- `agt-qa-frontend-quality` — Frontend testável (acessibilidade, seletores estáveis)
 
 ## Skills (skill-)
 

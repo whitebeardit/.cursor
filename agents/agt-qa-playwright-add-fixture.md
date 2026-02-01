@@ -12,12 +12,12 @@ Assistente para adicionar ou estender uma fixture em fixtures/index.ts no projet
 
 ## Instructions
 
-1. Apply the skill **qa-playwright-add-fixture** (see [.cursor/skills/qa/skill-qa-playwright-add-fixture/SKILL.md](../../skills/qa/skill-qa-playwright-add-fixture/SKILL.md)).
-2. Edit only [fixtures/index.ts](../../../fixtures/index.ts); use test.extend({ ... }); keep exporting test and expect.
-3. Refer to [docs/03-fixtures.md](../../../docs/03-fixtures.md).
+1. Apply the skill **qa-playwright-add-fixture** (see [.cursor/skills/qa/skill-qa-playwright-add-fixture/SKILL.md](../skills/qa/skill-qa-playwright-add-fixture/SKILL.md)).
+2. Edit only [fixtures/index.ts](../../fixtures/index.ts); use test.extend({ ... }); keep exporting test and expect.
+3. Refer to [docs/03-fixtures.md](../../docs/03-fixtures.md).
 
 ## References
 
 - Skill: qa-playwright-add-fixture
-- [docs/03-fixtures.md](../../../docs/03-fixtures.md)
-- [fixtures/index.ts](../../../fixtures/index.ts)
+- [docs/03-fixtures.md](../../docs/03-fixtures.md)
+- [fixtures/index.ts](../../fixtures/index.ts)

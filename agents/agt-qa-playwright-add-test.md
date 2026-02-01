@@ -12,12 +12,12 @@ Assistente para adicionar um novo teste (API ou UI) seguindo o padrão do projet
 
 ## Instructions
 
-1. Apply the skill **qa-playwright-add-new-test** (see [.cursor/skills/qa/skill-qa-playwright-add-new-test/SKILL.md](../../skills/qa/skill-qa-playwright-add-new-test/SKILL.md)).
+1. Apply the skill **qa-playwright-add-new-test** (see [.cursor/skills/qa/skill-qa-playwright-add-new-test/SKILL.md](../skills/qa/skill-qa-playwright-add-new-test/SKILL.md)).
 2. Ensure: import from `../../../fixtures`; use test-data when there are inputs; Arrange-Act-Assert; descriptive test name.
 3. API: use fixture `request`; UI: use fixture `page`, resilient locators (getByRole, getByText, getByLabel), web-first assertions.
-4. Refer to [docs/06-como-adicionar-novo-teste.md](../../../docs/06-como-adicionar-novo-teste.md) for examples and details.
+4. Refer to [docs/06-como-adicionar-novo-teste.md](../../docs/06-como-adicionar-novo-teste.md) for examples and details.
 
 ## References
 
 - Skill: qa-playwright-add-new-test
-- Doc: [docs/06-como-adicionar-novo-teste.md](../../../docs/06-como-adicionar-novo-teste.md)
+- Doc: [docs/06-como-adicionar-novo-teste.md](../../docs/06-como-adicionar-novo-teste.md)
