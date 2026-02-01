@@ -2,7 +2,7 @@
 
 ## Use the agent for AI-assisted commits
 
-**Para fluxo de commits assistido por IA**, use o agent **@agt-dev-commit**. Ele aplica a skill `.cursor/skills/shared/skill-conventional-commits/SKILL.md` (formato, detecção de contexto, checklist, validação) e usa **GitHub CLI** (`gh pr create`) para criação de PRs — nunca `git push origin main`.
+**Para fluxo de commits assistido por IA**, use o agent **/agt-dev-commit**. Ele aplica a skill `.cursor/skills/shared/skill-conventional-commits/SKILL.md` (formato, detecção de contexto, checklist, validação) e usa **GitHub CLI** (`gh pr create`) para criação de PRs — nunca `git push origin main`.
 
 O conteúdo abaixo serve como **referência** (regra para colar em Cursor Rules, exemplos, troubleshooting) e complementa o agent e a skill.
 
@@ -19,7 +19,7 @@ Also **prohibit push to `main` branch** without explicit authorization.
 
 **Suggested rule name:** `commit-policy-semantic-context`
 
-For the **full process** (context detection, grouping, checklist, output format), use the agent **@agt-dev-commit** or read the skill `.cursor/skills/shared/skill-conventional-commits/SKILL.md`. Summary:
+For the **full process** (context detection, grouping, checklist, output format), use the agent **/agt-dev-commit** or read the skill `.cursor/skills/shared/skill-conventional-commits/SKILL.md`. Summary:
 
 1. **Before committing:** Read `AGENTS.md` if it exists; detect context from folder structure/namespaces; group changed files by context.
 2. **Format:** `<type>(<scope>): <subject>` — types: `feat | fix | docs | style | refactor | perf | test | build | ci | chore | revert`; scope = context/module; subject in English, imperative, no period.
@@ -43,7 +43,7 @@ If there's a contract/API break:
 
 ## Expected agent output
 
-When using **@agt-dev-commit**, the agent responds with: (1) Context analysis; (2) Commit plan; (3) Ready commands (`git add` + `git commit`); (4) Explicit warning about main branch; (5) If requested, `gh pr create` for PR. See the agent and skill for the exact output format.
+When using **/agt-dev-commit**, the agent responds with: (1) Context analysis; (2) Commit plan; (3) Ready commands (`git add` + `git commit`); (4) Explicit warning about main branch; (5) If requested, `gh pr create` for PR. See the agent and skill for the exact output format.
 
 ---
 
@@ -265,6 +265,6 @@ gh pr create --title "feat(scope): subject" --body "..."
 
 - [Conventional Commits Specification](https://www.conventionalcommits.org/)
 - [Semantic Release Documentation](https://semantic-release.gitbook.io/)
-- **Agent:** `@agt-dev-commit` — AI-assisted commits and PR via GitHub CLI
+- **Agent:** `/agt-dev-commit` — AI-assisted commits and PR via GitHub CLI
 - **Skill:** `.cursor/skills/shared/skill-conventional-commits/SKILL.md` — full format, types, validation, semantic-release
 - **Rules:** `.cursor/rules/conventional-commits.md` (if present) — detailed commit type definitions

@@ -57,7 +57,9 @@ cp -r /path/to/.cursor-configs/* .cursor/
 
 ### 2. Available Agents
 
-Type `@agt-` in Cursor chat to list all agents. Filter by domain: `@agt-dev-` (general dev), `@agt-qa-` (QA/Playwright).
+Type `/agt-` in Cursor chat to list all agents. Filter by domain: `/agt-dev-` (general dev), `/agt-qa-` (QA/Playwright).
+
+**Invoking an agent:** In Cursor chat, use **`/`** (slash) + agent name + your task. Example: `/agt-qa-playwright-add-flow` + "Add login flow for the UI".
 
 #### Dev — .NET
 - **agt-dev-dotnet-logging**: Structured logging with correlation-ID tracking
@@ -87,12 +89,12 @@ Type `@agt-` in Cursor chat to list all agents. Filter by domain: `@agt-dev-` (g
 
 ### 3. Using Agents
 
-Agents are automatically available when this configuration is linked to `.cursor/`. Invoke in Cursor chat:
+Agents are automatically available when this configuration is linked to `.cursor/`. In chat, invoke an agent with **`/`** + agent name + prompt (e.g. `/agt-qa-playwright-add-flow` + task description). Examples:
 
 ```
-@agt-dev-commit Suggest commits for my changes
-@agt-dev-test Create tests for this function
-@agt-qa-playwright-maintain Align this spec with project conventions
+/agt-dev-commit Suggest commits for my changes
+/agt-dev-test Create tests for this function
+/agt-qa-playwright-maintain Align this spec with project conventions
 ```
 
 ### 4. Available Skills
