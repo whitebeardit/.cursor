@@ -24,6 +24,10 @@ cp -r /caminho/para/.cursor-configs/* .cursor/
 - **Agentes ficam somente** em `.cursor/agents/` (sem subpastas). O Cursor só reconhece agentes nesse nível.
 - **Nome único** por arquivo: `agt-<domínio>-<nome>.md` (ex.: `agt-dev-dotnet-logging.md`, `agt-qa-playwright-maintain.md`) para evitar colisão.
 
+## Como invocar
+
+No chat do Cursor, use **`/`** (barra) + nome do agente + prompt/tarefa. Exemplo: `/agt-qa-playwright-add-flow` + "Adicionar fluxo de login na UI". A invocação é com **`/`**, não com `@`.
+
 ## Agents (agt-)
 
 ### Dev (uso geral)
