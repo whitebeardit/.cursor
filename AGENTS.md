@@ -45,6 +45,7 @@ No chat do Cursor, use **`/`** (barra) + nome do agente + prompt/tarefa. Exemplo
 - `agt-dev-frontend-quality` — Frontend testável para QA (acessibilidade, seletores estáveis; uso pelo dev)
 
 ### QA (focado em QA / Playwright)
+- `agt-qa-code-reviewer` — Revisa código QA delegando às perspectivas dos subagents e entrega resumo de melhorias (manutenção, qualidade, padronização)
 - `agt-qa-playwright-maintain` — Mantém convenções do projeto QA Playwright
 - `agt-qa-playwright-add-test` — Adiciona novo teste (API ou UI)
 - `agt-qa-playwright-add-data` — Adiciona/estende test-data (inputs, builder)
@@ -57,7 +58,7 @@ No chat do Cursor, use **`/`** (barra) + nome do agente + prompt/tarefa. Exemplo
 - **dotnet**: `skill-correlation-id-tracking`, `skill-opentelemetry-instrumentation`
 - **nodejs**: `skill-correlation-id-tracking`, `skill-opentelemetry-instrumentation`
 - **shared**: `skill-code-quality`, `skill-conventional-commits`, `skill-idempotency`, `skill-jira-update`, `skill-performance`, `skill-security`, `skill-testing`
-- **qa**: `skill-qa-playwright-maintain-conventions`, `skill-qa-playwright-add-new-test`, `skill-qa-playwright-add-test-data`, `skill-qa-playwright-add-fixture`, `skill-qa-playwright-add-new-flow`, `skill-frontend-qa-friendly`
+- **qa**: `skill-qa-code-review`, `skill-qa-playwright-maintain-conventions`, `skill-qa-playwright-add-new-test`, `skill-qa-playwright-add-test-data`, `skill-qa-playwright-add-fixture`, `skill-qa-playwright-add-new-flow`, `skill-frontend-qa-friendly`
 
 ## Referências
 
