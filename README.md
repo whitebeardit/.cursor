@@ -29,6 +29,7 @@ This configuration repository is designed to be linked/synchronized to `.cursor/
 ├── skills/
 │   ├── dotnet/                  # skill-correlation-id-tracking, skill-opentelemetry-instrumentation
 │   ├── nodejs/                  # (same)
+│   ├── frontend/                # skill-frontend-instrumentation-otel
 │   ├── shared/                  # skill-testing, skill-conventional-commits, skill-security, etc.
 │   └── qa/                      # skill-qa-playwright-*, skill-frontend-qa-friendly
 │
@@ -69,6 +70,10 @@ Type `/agt-` in Cursor chat to list all agents. Filter by domain: `/agt-dev-` (g
 - **agt-dev-nodejs-logging**: Structured logging with correlation-ID tracking (Node.js)
 - **agt-dev-nodejs-opentelemetry**: OpenTelemetry instrumentation (Node.js)
 
+#### Dev — Frontend (Vite / TypeScript)
+- **agt-dev-frontend-instrumentation**: Frontend OpenTelemetry (Grafana/Tempo/Mimir); instrument new pages or review instrumentation code (Vite 3 + TypeScript)
+- **agt-dev-frontend-quality**: Frontend test-friendly for QA (accessibility, stable selectors; for dev use)
+
 #### Dev — Shared (multi-language)
 - **agt-dev-commit**: Conventional Commits, context grouping, GitHub CLI
 - **agt-dev-test**: Suggests/creates unit and integration tests
@@ -77,7 +82,6 @@ Type `/agt-` in Cursor chat to list all agents. Filter by domain: `/agt-dev-` (g
 - **agt-dev-documentation**: JSDoc, XML docs, README, API docs
 - **agt-dev-idempotency**: Idempotent operations
 - **agt-dev-jira-update**: Safely updates Jira cards (Atlassian MCP)
-- **agt-dev-frontend-quality**: Frontend test-friendly for QA (accessibility, stable selectors; for dev use)
 
 #### QA (Playwright / frontend testability)
 - **agt-qa-playwright-maintain**: Maintains QA Playwright project conventions
@@ -94,6 +98,7 @@ Agents are automatically available when this configuration is linked to `.cursor
 ```
 /agt-dev-commit Suggest commits for my changes
 /agt-dev-test Create tests for this function
+/agt-dev-frontend-instrumentation Instrument this new Vue page with usePageTelemetry
 /agt-qa-playwright-maintain Align this spec with project conventions
 ```
 
@@ -103,6 +108,7 @@ Skills (folder prefix `skill-`) are referenced by agents. Organized by language 
 
 - **dotnet/**: skill-correlation-id-tracking, skill-opentelemetry-instrumentation
 - **nodejs/**: (same)
+- **frontend/**: skill-frontend-instrumentation-otel
 - **shared/**: skill-testing, skill-security, skill-code-quality, skill-conventional-commits, skill-idempotency, skill-jira-update, skill-performance
 - **qa/**: skill-qa-playwright-maintain-conventions, skill-qa-playwright-add-new-test, skill-qa-playwright-add-test-data, skill-qa-playwright-add-fixture, skill-qa-playwright-add-new-flow, skill-frontend-qa-friendly
 
@@ -153,13 +159,14 @@ See [docs/CREATING_ASSETS.md](docs/CREATING_ASSETS.md) for detailed guides on:
 Currently supported:
 - **.NET** (C#): Full support with agt-dev-dotnet-* agents and skill-* skills
 - **Node.js** (TypeScript/JavaScript): Full support with agt-dev-nodejs-* agents and skill-* skills
+- **Frontend** (Vite 3 + TypeScript): agt-dev-frontend-instrumentation, agt-dev-frontend-quality; skill-frontend-instrumentation-otel
 - **Multi-language**: Shared agt-dev-* agents and skill-* skills
 - **QA / Playwright**: agt-qa-* agents and skill-qa-* / skill-frontend-qa-friendly
 
 ## Contributing
 
 When adding new assets:
-1. Put agents directly in `.cursor/agents/` (no subdirs); skills stay in `skills/dotnet/`, `skills/nodejs/`, `skills/shared/`, or `skills/qa/`
+1. Put agents directly in `.cursor/agents/` (no subdirs); skills stay in `skills/dotnet/`, `skills/nodejs/`, `skills/frontend/`, `skills/shared/`, or `skills/qa/`
 2. Use prefix `agt-` for agents (name without `-assistant`); use prefix `skill-` for skill folder names
 3. Use proper frontmatter; reference skills using full paths (`.cursor/skills/.../skill-<name>/SKILL.md`)
 4. Update this README and [AGENTS.md](AGENTS.md) if adding major features
