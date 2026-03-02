@@ -32,6 +32,7 @@ No chat do Cursor, use **`/`** (barra) + nome do agente + prompt/tarefa. Exemplo
 
 ### Dev (uso geral)
 - `agt-dev-commit` — Conventional Commits, agrupamento por contexto, GitHub CLI
+- `agt-dev-planner` — Orquestrador de contexto: cria plano incremental e verificável (antes de codar)
 - `agt-dev-test` — Sugere/cria testes (unit, integration)
 - `agt-dev-security` — Vulnerabilidades, OWASP Top 10
 - `agt-dev-refactor` — Refatoração, SOLID, code quality
@@ -59,7 +60,7 @@ No chat do Cursor, use **`/`** (barra) + nome do agente + prompt/tarefa. Exemplo
 - **dotnet**: `skill-correlation-id-tracking`, `skill-opentelemetry-instrumentation`
 - **nodejs**: `skill-correlation-id-tracking`, `skill-opentelemetry-instrumentation`
 - **frontend**: `skill-frontend-instrumentation-otel`
-- **shared**: `skill-code-quality`, `skill-conventional-commits`, `skill-idempotency`, `skill-jira-update`, `skill-performance`, `skill-security`, `skill-testing`
+- **shared**: `skill-code-quality`, `skill-conventional-commits`, `skill-idempotency`, `skill-jira-update`, `skill-performance`, `skill-planning`, `skill-security`, `skill-testing`
 - **qa**: `skill-qa-code-review`, `skill-qa-playwright-maintain-conventions`, `skill-qa-playwright-add-new-test`, `skill-qa-playwright-add-test-data`, `skill-qa-playwright-add-fixture`, `skill-qa-playwright-add-new-flow`, `skill-frontend-qa-friendly`
 
 ## Referências
